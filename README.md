@@ -21,7 +21,7 @@ This data is compiled by myself. It is a list of all species in the boreal regio
 - 3: grouped species for use with the Interaction data previously mentioned.
 
 # WALKTHROUGH
-To be successful in this walkthrough, **SQLite3 (ver. >= 3.49)** and **Python (ver. >= 3.12)** must be installed on your machine.
+To be successful in this walkthrough, **SQLite3 (ver. >= 3.49)** and **Python (ver. >= 3.12)** must be installed on your machine. Also, ensure that all of the files in the zipped `init_data` folder are extracted and placed in unzipped `init_data` folder.
 To prepare the data for analysis, the following commands must be run a terminal whose current working directory is this folder:
 
 Firstly, create a database and upload the inital information:

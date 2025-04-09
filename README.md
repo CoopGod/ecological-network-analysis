@@ -59,4 +59,6 @@ I was not able to do this because ABMI did not have the data of repeat visits at
 In preparation for this data, I have included some queries that would help a future researcher quickly get calculations:
 - `sql_queries/future_queries/species_pair_counts_over_time.sql` would replace `sql_queries/species_pair_counts` in the walk through to group the data by sites instead of years
 - in `spearmans.py`, swapping the filtering and grouping variable would allow of Spearman's to be calculated over time.
-- `sql_queries/future_queries/species_network_over_time.sql` would replace `sql_queries/species_pair_counts` in the walk through to combine this new data we have just calculated
+- `sql_queries/future_queries/species_network_over_time.sql` would replace `sql_queries/species_network.sql` in the walk through to combine this new data we have just calculated
+
+## INDIVIDUAL SPECIES COMPARISON

@@ -62,3 +62,8 @@ In preparation for this data, I have included some queries that would help a fut
 - `sql_queries/future_queries/species_network_over_time.sql` would replace `sql_queries/species_network.sql` in the walk through to combine this new data we have just calculated
 
 ## INDIVIDUAL SPECIES COMPARISON
+Another interesting application of this research would be analyzing the relationships between the counts of different species specifically. Doing this with predatory-prey species might reveal some interesting patterns to be analyzed further.
+
+In preparation for this, I have included some queries that would help a future reseacher quickly get data for this analysis:
+- `sql_queries/future_queries/specific_species_count.sql` can be run (see the walkthrough to learn how to run this query) to generate these counts. The researcher must put the species they have chosen to analyze in the IN() function within the query.
+- Then, use `sqlite3 -header -csv data_analysis.db 'SELECT * FROM SpeciesCounts;' > 'generated_data/specific_counts.csv'` to generate `generated_data/specific_counts.csv` which has the required information. 

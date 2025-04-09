@@ -106,9 +106,6 @@ WHERE
     AND s1.species_scientific_name != s2.species_scientific_name;
 
 -- Output data 
--- (NOTE: All references to year in this query must be altered to change the filtering variable.
--- Currently, this filters the data so that only those species pairs in a given *year* that are obsevered
--- 3 or more times are included, so that Spearman's correlations can be properly run on them)
 CREATE TABLE FilteredSpeciesPairs AS
 SELECT
     *

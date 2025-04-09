@@ -14,8 +14,8 @@ OUTPUT_FILE = "generated_data/pair_spearmans.csv"
 BASE_VARIABLE = "species_pair"  # Expected to be a pair structured: 'Obj1-Obj2'
 BV_COUNT_1 = "first_count"
 BV_COUNT_2 = "second_count"
-GROUPING_VARIABLE = "lid"
-FILTERING_VARIABLE = "year"
+FILTERING_VARIABLE = "lid"
+GROUPING_VARIABLE = "year" # Swap with above variable to change to spearmans over time
 
 
 def calculateSpearmans(
@@ -23,17 +23,17 @@ def calculateSpearmans(
     base_variable: str,
     base_count_1: str,
     base_count_2: str,
-    grouping_variable: str,
     filtering_variable: str,
+    grouping_variable: str,
 ) -> dict:
     """
-    This function calculates spearmans correlations on the base_variable counts over the grouping_variable.
+    This function calculates spearmans correlations on the base_variable counts over the groups of grouping_variable.
 
     :param base_variable: the variable in the df on which the Spearman's correlations will be calculated. This variable should be a pair of some sort
     :param base_count_1: the count of the first part of the pair base_variable
     :param base_count_2: the count of the second part of the pair base_variable
+    :param filtering_variable: what the df should run the Spearman's calculations on
     :param grouping_variable: the variable in the df on which the base_variable is split into groups (i.e. by year, location, etc.)
-    :param filtering_variable: the variable by which the grouping variable is constrained. (i.e. grouping=location, filtering=year yields spearmans over all locations at given year)
     :returns: a dictionary containing the base_variable Spearman's correlations and other important data
     """
     completed_pairs = (
@@ -42,20 +42,20 @@ def calculateSpearmans(
     for index, row in df.iterrows():
         # calculate spearman correaltions by species pairs in given group of grouping_variable
         if (
-            completed_pairs.get(f"{row[base_variable]}-{row[filtering_variable]}", None)
+            completed_pairs.get(f"{row[base_variable]}-{row[grouping_variable]}", None)
             == None
         ):
             current_pair = df[
                 (df[base_variable] == row[base_variable])
-                & (df[filtering_variable] == row[filtering_variable])
+                & (df[grouping_variable] == row[grouping_variable])
             ]
             rho, p = spearmanr(current_pair[base_count_1], current_pair[base_count_2])
             # save resulting correlation for later
-            completed_pairs[f"{row[base_variable]}-{row[filtering_variable]}"] = {
+            completed_pairs[f"{row[base_variable]}-{row[grouping_variable]}"] = {
                 base_variable: row[base_variable],
-                filtering_variable: row[filtering_variable],
+                grouping_variable: row[grouping_variable],
                 "spearmans": rho,
-                f"{grouping_variable}_count": current_pair.shape[0],
+                f"{filtering_variable}_count": current_pair.shape[0],
                 "p_value": p,
             }
     return completed_pairs
@@ -66,7 +66,7 @@ def main() -> None:
     df = pandas.read_csv(os.path.join(cwd, DATA_FILE), encoding="UTF-16")
 
     completed_pairs = calculateSpearmans(
-        df, BASE_VARIABLE, BV_COUNT_1, BV_COUNT_2, GROUPING_VARIABLE, FILTERING_VARIABLE
+        df, BASE_VARIABLE, BV_COUNT_1, BV_COUNT_2, FILTERING_VARIABLE, GROUPING_VARIABLE
     )
 
     # transform collected spearman correlations into table with species pairs, lid, sample size

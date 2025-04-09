@@ -34,15 +34,12 @@ Next, we need to use the given data to create species pairs found in the boreal 
 - `.read 'sql_queries/species_pair_interactions.sql'`
   - Note: remove the last query in this script to calculate a trophic network, as opposed to a combined network
 - `.read 'sql_queries/species_pair_counts.sql'`
-  - Note: the final query in this script can be altered to change the variable by which the species pairs are filtered (i.e. location, year, etc.) and the magnitude of the filtering. In this case, the data only includes where (species_pair, location) is found more than 3 times in a given *year* (year being the filtering variable).
 - `.quit` to exit SQLite3's command interface
 - `sqlite3 -header -csv data_analysis.db 'SELECT * FROM FilteredSpeciesPairs;' > 'generated_data/pair_counts.csv'`
 
 Now, we will assign Spearman's correlations to the species counts we have generated and add it to the database:
 - `python spearmans.py`
   - **Note: this process takes time. Allow the program multiple minutes to run**.
-  - Note: the global variable GROUPING_VARIABLE in this script can be altered to change the varible by which the species pairs are grouped in the Spearman's correlations. This must be combined with the changes to species_pair_counts.sql to work as intended.
-  - Note: the global variable FILTERING_VARIABLE can be changed as well, in accordance with the above note.
 - `sqlite3 data_analysis.db` to enter SQLite3's command interface
 - `.import 'generated_data/pair_spearmans.csv' PairSpearmans --csv`
 
@@ -53,3 +50,13 @@ Finally, we will assign the uncalculated network distances to this data:
 - `python network.py`
 
 Which ouputs a file located in the generated_data folder called ***completed_network_data.csv*** which contains all species pairs in the boreal region of Alberta, their Spearman's correlations, and ecological interaction network distance.
+
+# FUTURE RESEARCH
+## CORRELATIONS OVER TIME
+An interesting application of this reserach would be to recompute the Spearman's correlations over time. This might help to account for some of the noise seen in my research.
+I was not able to do this because ABMI did not have the data of repeat visits at particular sites, though I have been told this ABMI is working to collect this data.
+
+In preparation for this data, I have included some queries that would help a future researcher quickly get calculations:
+- `sql_queries/future_queries/species_pair_counts_over_time.sql` would replace `sql_queries/species_pair_counts` in the walk through to group the data by sites instead of years
+- in `spearmans.py`, swapping the filtering and grouping variable would allow of Spearman's to be calculated over time.
+- `sql_queries/future_queries/species_network_over_time.sql` would replace `sql_queries/species_pair_counts` in the walk through to combine this new data we have just calculated

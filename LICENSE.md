@@ -12,4 +12,4 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 4. No Warranty: The Software is provided "as is", without warranty of any kind, express or implied. The author(s) shall not be held liable for any damages resulting from its use.
 
-For commercial inquiries, please contact coopgod@telus.net.
+For commercial inquiries, please contact coopgodd@gmail.com.

@@ -76,16 +76,14 @@ INSERT INTO
     SpeciesPairs
 SELECT DISTINCT
     CASE
-        WHEN s1.species_scientific_name < s2.species_scientific_name THEN CONCAT (
-            s1.species_scientific_name,
-            '-',
+        WHEN s1.species_scientific_name < s2.species_scientific_name THEN
+            s1.species_scientific_name ||
+            '-' ||
             s2.species_scientific_name
-        )
-        ELSE CONCAT (
-            s2.species_scientific_name,
-            '-',
+        ELSE
+            s2.species_scientific_name ||
+            '-' ||
             s1.species_scientific_name
-        )
     END AS species_pair,
     s1.location_id as lid,
     s1.year,

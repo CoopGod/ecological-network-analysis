@@ -11,8 +11,8 @@ INSERT INTO
     AlbertaInteractions (pair)
 SELECT
     CASE
-        WHEN upper(species_1) < upper(species_2) THEN CONCAT (upper(species_1), '-', upper(species_2))
-        ELSE CONCAT (upper(species_2), '-', upper(species_1))
+        WHEN upper(species_1) < upper(species_2) THEN upper(species_1) || '-' || upper(species_2)
+        ELSE upper(species_2) || '-' || upper(species_1)
     END AS pair
 FROM
     (
@@ -79,8 +79,8 @@ WHERE
     pair IN (
         SELECT
             CASE
-                WHEN upper(given_species) < upper(target_species) THEN CONCAT (upper(given_species), '-', upper(target_species))
-                ELSE CONCAT (upper(target_species), '-', upper(given_species))
+                WHEN upper(given_species) < upper(target_species) THEN upper(given_species) || '-' || upper(target_species)
+                ELSE  upper(target_species) || '-' || upper(given_species)
             END AS pair
         FROM
             Interactions
@@ -96,8 +96,8 @@ WHERE
     pair IN (
         SELECT
             CASE
-                WHEN upper(given_species) < upper(target_species) THEN CONCAT (upper(given_species), '-', upper(target_species))
-                ELSE CONCAT (upper(target_species), '-', upper(given_species))
+                WHEN upper(given_species) < upper(target_species) THEN upper(given_species) || '-' || upper(target_species)
+                ELSE upper(target_species) || '-' || upper(given_species)
             END AS pair
         FROM
             Interactions

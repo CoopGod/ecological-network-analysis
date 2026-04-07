@@ -29,7 +29,10 @@ To prepare the data for analysis, the following commands must be run a terminal 
 
 This  ouputs a file located in the generated_data folder called ***out.csv*** which contains all species pairs in the boreal region of Alberta, their Spearman's correlations, and ecological interaction network distance.
 
-- Coming soon: options to change the filtering and such!
+Coming soon: 
+- options to change the filtering and such!
+- terminal colours!
+- optimizations for the final SQL script to speed that up (indexing to avoid O(n^2))
 
 # FUTURE RESEARCH
 ## CORRELATIONS OVER TIME
